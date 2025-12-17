@@ -1,0 +1,55 @@
+常见指令
+
+(1)连接操作：
+a100
+ssh -p 30022 liyihain@root@ssh-448.default@10.30.129.200
+a800
+ssh -p 30022 liyihan@root@ssh-1053.default@10.127.23.252
+
+(2)文件操作：
+1.统计文件数量
+ls -l 文件名称 | grep "^-" | wc -l
+
+2.统计文件夹数量
+ls -l table_output | grep "^d" | wc -l
+
+3.创建文件夹，创建文件
+mkdir new_folder
+mkdir -p a/b/c
+touch file.txt
+
+4.复制本服务器：复制文件夹的内容 ../ 是回退到上一层文件夹，将verl文件夹中的内容复制到本文件夹下的verl_0603目录下
+cp -r ../Code/Code/verl ./verl_0603
+
+5.复制跨服务器：把Qwen3-8B-Base文件夹内部数据传到Qwen3-32B-Base中
+scp -P 30022 -r Qwen3-8B-Base/* liyihan@root@ssh-1019.default@10.127.23.252:/gemini-1/space/space/private/pcz/models/Qwen3-32B-Base
+scp -P 30022 -r Qwen3-14B/* liyihan@root@ssh-1019.default@10.127.23.252:/gemini-1/space/space/private/pcz/models/Qwen3-14B
+scp -P 30022 /gemini/space/private/lyh/jsonl/v5_test_0429.jsonl pcz@root@ssh-92fb0c6d1758261f10d052e6e2c1123c.default@10.127.23.252:/gemini-1/space/space/private/zhangjie/table-reasoning/data/v5_0429/test
+
+6.移动文件夹：不包含文件夹名称 和 包含文件名
+mv /home/user/source_folder/* /home/user/target_folder/
+mv folder1 /home/user/backup/
+mv v5_train_0429.jsonl /gemini-1/space/space/private/zhangjie/table-reasoning/data/v5_0429/
+
+7.删除文件夹：删除某个目录及其内部的所有文件和子目录的命令 
+rm -rf /home/user/myfolder
+rm file.txt
+
+
+(3)查看进程：
+1.查看python进程
+ps -ef | grep python
+
+2.列出所有PID Ray + Python
+ps aux | grep -E 'ray|python' | grep -v grep
+
+3.批量强制杀掉
+ps aux | grep -E 'ray|python' | grep -v grep | awk '{print $2}' | xargs -r kill -9
+
+
+
+ssh 10.244.70.171
+Pjx@190341
+
+
+

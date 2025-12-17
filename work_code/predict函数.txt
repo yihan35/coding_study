@@ -1,0 +1,48 @@
+OPENAI_API_KEY = "EMPTY"
+OPENAI_API_BASE = "http://10.244.78.132:8010/v1"  # 请替换为你的API地址
+
+
+# ------------------- API调用函数 -------------------
+
+# 初始化OpenAI客户端
+try:
+    client = OpenAI(api_key=OPENAI_API_KEY, base_url=OPENAI_API_BASE)
+except Exception as e:
+    print(f"Error initializing OpenAI client: {e}")
+    print("Please make sure the OPENAI_API_BASE URL is correct and the server is running.")
+    client = None
+
+def predict(query_messages):
+    """调用大模型API生成响应"""
+    if not client:
+        print("Client not initialized. Cannot make prediction.")
+        return "Error: Client not initialized."
+
+    max_try = 5
+    while max_try > 0:
+        try:
+            model_name = client.models.list().data[0].id
+            print(f"\n---> [INFO] Using model '{model_name}' to generate response...")
+
+            response = client.chat.completions.create(
+                model=model_name,
+                messages=query_messages,
+                temperature=0.7,
+                top_p=0.9,
+                max_tokens=2048,
+                extra_body={
+                    "repetition_penalty": 1.05,
+                    "skip_special_tokens": False,
+                    "spaces_between_special_tokens": False,
+                    "chat_template_kwargs":{"enable_thinking":False}
+                }
+            )
+            content = response.choices[0].message.content.strip()
+            print(f"<--- [SUCCESS] Model returned content successfully.")
+            return content
+        except Exception as e:
+            max_try -= 1
+            print(f"[ERROR] API call failed: {e}. Retrying... ({max_try} attempts left)")
+            if max_try == 0:
+                return f"Error: API call failed after multiple retries. Last error: {e}"
+    return "Error: Maximum retries exceeded."

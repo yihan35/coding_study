@@ -1,0 +1,1 @@
+modelscope download --model Qwen/Qwen2.5-0.5B-Instruct --local_dir "/Users/liyihan/coding/models/Qwen2.5-0.5B-Instruct"
