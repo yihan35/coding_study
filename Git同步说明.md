@@ -56,7 +56,7 @@ git commit -m "初始提交：添加大模型和力扣学习代码"
 # 连接到 GitHub 仓库（需要先在 GitHub 创建仓库）
 # 将下面的 YOUR_USERNAME 和 YOUR_REPO_NAME 替换为你的 GitHub 用户名和仓库名
 git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git
-
+git remote add origin https://github.com/yihan35/coding_study.git
 # 推送到 GitHub
 git branch -M main
 git push -u origin main
@@ -71,7 +71,7 @@ git push -u origin main
 cd ~
 
 # 克隆仓库（替换为你的仓库地址）
-git clone https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git coding
+git clone https://github.com/yihan35/coding_study.git coding
 
 # 进入目录
 cd coding
