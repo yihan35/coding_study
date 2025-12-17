@@ -1,12 +1,12 @@
 import torch
 from torch import nn
 class LayerNorm(nn.Module):
-    def __init__(self,normalized_shape,eps=1e-5,elementwisw_affine=True):
+    def __init__(self,normalized_shape,eps=1e-5,elementwise_affine=True):
         super().__init__()
         self.normalized_shape = normalized_shape
         self.eps = eps
-        self.elementwisw_affine = elementwisw_affine
-        if elementwisw_affine:
+        self.elementwisw_affine = elementwise_affine
+        if elementwise_affine:
             self.gamma = nn.Parameter(torch.ones(normalized_shape))
             self.beta = nn.Parameter(torch.zeros(normalized_shape))
 
