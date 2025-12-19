@@ -16,5 +16,6 @@ bsz,seq_len,d_model = 2,4,8
 x=torch.rand(bsz,seq_len,d_model)
 rmsnorm=RMSNorm(d_model)
 output=rmsnorm(x)
-print("input data shape",x.shape)
-print("output data shape",output.shape)
+# 以下逗号分隔（print 自动处理）
+print("input data shape:",x.shape)
+print("output data shape:",output.shape)
