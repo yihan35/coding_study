@@ -1,5 +1,5 @@
 import torch
-from torch import nn
+from torch import nn 
 class LayerNorm(nn.Module):
     def __init__(self,normalized_shape,eps=1e-5,elementwise_affine=True):
         super().__init__()

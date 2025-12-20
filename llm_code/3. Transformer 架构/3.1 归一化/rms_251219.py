@@ -1,3 +1,4 @@
+# lyh practice 1219
 import torch
 import torch.nn as nn
 class RMS(nn.Module):
