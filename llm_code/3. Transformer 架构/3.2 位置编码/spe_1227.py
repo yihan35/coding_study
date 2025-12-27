@@ -19,10 +19,13 @@ class SPE(nn.Module):
         print('pe 之前的形状：',pe.shape)
         pe = pe.unsqueeze(0)
         print('pe 之后的形状：',pe.shape)
+        # 1. 注册为 buffer：将 pe 张量注册为模型的一个 buffer（缓冲区）
+        # 2. 自动成为属性：注册后，可以通过 self.pe 访问这个张量
+        # 3. 不是参数：Buffer 和参数（parameter）不同，它不会被优化器更新，但会跟随模型移动到 GPU/CPU
         self.register_buffer('pe',pe)
     def forward(self,x):
         bsz,seq_len,d = x.shape
-        x=x+self.pe[:,:seq_len:]
+        x=x+self.pe[:,:seq_len]
         return x
 
 bsz=1
