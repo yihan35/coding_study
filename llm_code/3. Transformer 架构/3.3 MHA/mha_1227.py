@@ -22,7 +22,7 @@ class MultiHeadAttention(nn.Module):
         if mask is not None:
             scores = scores.masked_fill(mask==0,float('-inf')) # 默写 masked_fill
         scores_soft = F.softmax(scores,dim = -1)
-        output = torch.matmul(scores_soft,v)
+        output = torch.matmul(scores_soft,v) # 默写 matmul：matrix multiplication
         # output = output.transpose(1,2).reshape(bsz,seq,self.d_model)
         output = output.transpose(1,2).contiguous().view(bsz,seq,self.d_model)
         output = self.W_O(output)
