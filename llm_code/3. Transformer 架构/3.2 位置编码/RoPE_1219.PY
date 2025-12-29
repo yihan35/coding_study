@@ -28,7 +28,6 @@ class RotaryPositionEmbedding(nn.Module):
 
         return torch.stack([rotated_x1, rotated_x2], dim=-1).flatten(-2)
 
-
 if __name__ == "__main__":
     dim = 64
     max_seq_len = 128
