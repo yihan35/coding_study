@@ -185,6 +185,7 @@ class SwiGLU_FFN(nn.Module):
             d_ff = 4 * d_model  # 默认扩展4倍
         
         # 三个线性投影层
+        # bias=False：
         self.gate_proj = nn.Linear(d_model, d_ff, bias=False)
         self.up_proj = nn.Linear(d_model, d_ff, bias=False)
         self.down_proj = nn.Linear(d_ff, d_model, bias=False)
