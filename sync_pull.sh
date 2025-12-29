@@ -34,6 +34,9 @@ if ! git diff-index --quiet HEAD --; then
     fi
 fi
 
+# 配置 pull 策略（使用 rebase 保持线性历史）
+git config pull.rebase true
+
 # 拉取远程代码
 echo -e "${YELLOW}⬇️  拉取远程代码...${NC}"
 if git pull; then
@@ -47,5 +50,8 @@ else
     echo -e "${YELLOW}  1. 网络连接是否正常${NC}"
     echo -e "${YELLOW}  2. 是否有需要手动解决的冲突${NC}"
     echo -e "${YELLOW}  3. GitHub 仓库地址是否正确${NC}"
+    echo -e "${YELLOW}💡 如有冲突，请解决后执行：${NC}"
+    echo -e "${YELLOW}    git add .${NC}"
+    echo -e "${YELLOW}    git rebase --continue${NC}"
     exit 1
 fi

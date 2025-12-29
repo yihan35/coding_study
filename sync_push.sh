@@ -43,6 +43,18 @@ else
     git commit -m "$COMMIT_MSG"
 fi
 
+# 先拉取远程代码，避免分叉
+echo -e "${YELLOW}⬇️  先拉取远程最新代码...${NC}"
+if ! git pull --rebase; then
+    echo -e "${RED}❌ 拉取失败或存在冲突！${NC}"
+    echo -e "${YELLOW}💡 请手动解决冲突后再推送${NC}"
+    echo -e "${YELLOW}  1. 解决冲突文件${NC}"
+    echo -e "${YELLOW}  2. git add .${NC}"
+    echo -e "${YELLOW}  3. git rebase --continue${NC}"
+    echo -e "${YELLOW}  4. git push${NC}"
+    exit 1
+fi
+
 # 推送到远程仓库
 echo -e "${YELLOW}🚀 推送到 GitHub...${NC}"
 if git push; then
@@ -50,7 +62,6 @@ if git push; then
 else
     echo -e "${RED}❌ 推送失败！请检查：${NC}"
     echo -e "${YELLOW}  1. 网络连接是否正常${NC}"
-    echo -e "${YELLOW}  2. 是否需要先拉取远程代码：git pull${NC}"
-    echo -e "${YELLOW}  3. GitHub 账号权限是否正确${NC}"
+    echo -e "${YELLOW}  2. GitHub 账号权限是否正确${NC}"
     exit 1
 fi
