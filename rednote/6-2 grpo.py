@@ -9,6 +9,7 @@ class GRPO:
     def group_advantage(self, rewards):
         # rewards shape: (B, G) —— 组维度是 G，在 dim=1 求均值
         mean = rewards.mean(dim=1, keepdim=True)
+        # 当前这一组所有样本当作完整总体，不是抽样估计总体，就应该除以总数 n，不用除以(n-1)
         std = rewards.std(dim=1, keepdim=True, unbiased=False)
         advantages = (rewards - mean) / (std + self.eps)
         return advantages.detach()
