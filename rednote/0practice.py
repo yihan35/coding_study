@@ -44,4 +44,4 @@ class LayerNorm(nn.Module):
         # x - mean/ std+eps
         x_mean = x.mean(dim=-1,keepdim = True)
         x_var = x.mean(dim=-1,keepdim = True)
-        x = (x-x_mean) / (x_std+self.eps)
+        x = (x-x_mean) / (x_var+self.eps)
