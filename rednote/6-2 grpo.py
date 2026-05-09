@@ -26,27 +26,20 @@ class GRPO:
         # advantages：[B,G]
         # ==================== 1. 重要性采样比率 ====================
         ratio = torch.exp(new_logps - old_logps)  # (B, G, S)
-
         # ==================== 2. KL 散度惩罚 ====================
         log_ratio_ref = new_logps - ref_logps
         kl_penalty = self.beta * (torch.exp(log_ratio_ref) - log_ratio_ref - 1.0)
-
         # ==================== 3. 优势广播到 token 维度 ====================
         # (B, G) → (B, G, 1) → (B, G, S)
         adv = advantages.unsqueeze(-1).expand_as(old_logps)
-
         # ==================== 4. GRPO 裁剪目标 ====================
         surr1 = ratio * adv
         surr2 = torch.clamp(ratio, 1.0 - self.clip, 1.0 + self.clip) * adv
         policy_obj = torch.min(surr1, surr2) - kl_penalty  # (B, G, S)
-
         # ==================== 5. 第一层平均：Token 归一化 1/|o_i| ====================
         seq_obj = self.mask_mean(policy_obj, act_mask, dim=-1)  # (B, G)
-
         # ==================== 6. 第二层平均：组归一化 1/G ====================
         group_obj = seq_obj.mean(dim=1)  # (B,) —— 1/G sum_{i=1}^G
-
         # ==================== 7. 第三层：批次期望（最终损失） ====================
         loss = -group_obj.mean()  # 梯度上升转下降
-
         return loss
