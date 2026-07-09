@@ -1,4 +1,4 @@
-# 中序遍历二叉树
+# 求二叉树的最小深度
 from collections import deque
 class TreeNode:
     def __init__(self,val,left=None,right=None):
@@ -46,7 +46,7 @@ level_order= [1, 2, 3, None, None, 4, 5]
 #     4   5
 root = build_tree(level_order)
 result = minDepth(root)
-print(result)
+print(result) # 2
 
 
 

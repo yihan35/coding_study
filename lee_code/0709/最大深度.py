@@ -1,4 +1,4 @@
-# 中序遍历二叉树
+# 求二叉树的最大深度
 from collections import deque
 class TreeNode:
     def __init__(self,val,left=None,right=None):
