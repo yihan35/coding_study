@@ -1,4 +1,4 @@
-# 中序遍历二叉树
+# 翻转二叉树
 from collections import deque
 class TreeNode:
     def __init__(self,val,left=None,right=None):
